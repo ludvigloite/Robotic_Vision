@@ -6,7 +6,7 @@ Spring 2021
 ### Assignments (30%)
 :white_check_mark:  Assignment 1
 
-:white_check_mark:  Assignment 2  (deadline 21.02)
+:white_check_mark:  Assignment 2
 
 :white_check_mark:  Assignment 3
 
