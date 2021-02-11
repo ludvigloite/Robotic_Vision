@@ -21,4 +21,5 @@ Spring 2021
 :x:  Midterm project (25%)
 
 :x:  Final project (35%)
+
 :x:  Digital home exam (10%)
