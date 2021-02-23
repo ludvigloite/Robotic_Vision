@@ -10,7 +10,7 @@ Spring 2021
 
 :white_check_mark:  Assignment 3
 
-:x:  Assignment 4
+:white_check_mark:  Assignment 4
 
 :x:  Assignment 5
 
