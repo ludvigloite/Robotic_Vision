@@ -2,14 +2,27 @@ import numpy as np
 
 
 def jacobian(residualsfun, p, epsilon):
-    J = np.zeros([14,3])
-    e1 = np.array([1,0,0])*epsilon
-    e2 = np.array([0,1,0])*epsilon
-    e3 = np.array([0,0,1])*epsilon
+    # J = np.zeros([14,3])
+    n = residualsfun(p).shape[0]
+    m = p.shape[0]
+    J = np.zeros([n,m]) # task 2.2
+    for i in range(m):
+        e = np.zeros(m)
+        e[i] = epsilon
+        J[:,i] = (residualsfun(p+e)-residualsfun(p-e)) / (2*epsilon)
+    # e1 = np.array([1,0,0,0,0,0])*epsilon
+    # e2 = np.array([0,1,0,0,0,0])*epsilon
+    # e3 = np.array([0,0,1,0,0,0])*epsilon
+    # e4 = np.array([0,0,0,1,0,0])*epsilon
+    # e5 = np.array([0,0,0,0,1,0])*epsilon
+    # e6 = np.array([0,0,0,0,0,1])*epsilon
 
-    J[:,0] = (residualsfun(p+e1)-residualsfun(p-e1)) / (2*epsilon)
-    J[:,1] = (residualsfun(p+e2)-residualsfun(p-e2)) / (2*epsilon)
-    J[:,2] = (residualsfun(p+e3)-residualsfun(p-e3)) / (2*epsilon)
+    # J[:,0] = (residualsfun(p+e1)-residualsfun(p-e1)) / (2*epsilon)
+    # J[:,1] = (residualsfun(p+e2)-residualsfun(p-e2)) / (2*epsilon)
+    # J[:,2] = (residualsfun(p+e3)-residualsfun(p-e3)) / (2*epsilon)
+    # J[:,3] = (residualsfun(p+e1)-residualsfun(p-e4)) / (2*epsilon)
+    # J[:,4] = (residualsfun(p+e2)-residualsfun(p-e5)) / (2*epsilon)
+    # J[:,5] = (residualsfun(p+e3)-residualsfun(p-e6)) / (2*epsilon)
 
     return J
 
@@ -68,6 +81,7 @@ def levenberg_marquardt(residualsfun, p0, printbool=False, stop_precision = 1e-6
     e = finite_difference_epsilon
 
     J = jacobian(residualsfun,p,e)
+    dim = J.shape[1]
 
     mu = np.max(np.diag((J.T @ J))) * 1e-3
 
@@ -90,7 +104,7 @@ def levenberg_marquardt(residualsfun, p0, printbool=False, stop_precision = 1e-6
         JTJ = J.T @ J
         JTr = J.T @ residualsfun(p)
 
-        delta = -np.linalg.inv(JTJ + mu * np.eye(3)) @ JTr
+        delta = -np.linalg.inv(JTJ + mu * np.eye(dim)) @ JTr
 
         if printbool:
             print(f"delta  = {delta}")

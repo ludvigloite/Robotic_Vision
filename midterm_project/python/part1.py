@@ -74,4 +74,4 @@ for image_number in range(run_until):
 # directory under the filenames out_*.png.
 
 generate_quanser_summary(trajectory, all_residuals, detections)
-#plt.show()
+plt.show()
