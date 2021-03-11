@@ -4,9 +4,9 @@ from common import *
 
 class Quanser:
     def __init__(self):
-        self.K = np.loadtxt('../data/K.txt')
-        self.heli_points = np.loadtxt('../data/heli_points.txt').T
-        self.platform_to_camera = np.loadtxt('../data/platform_to_camera.txt')
+        self.K = np.loadtxt('midterm_project/data/K.txt')
+        self.heli_points = np.loadtxt('midterm_project/data/heli_points.txt').T
+        self.platform_to_camera = np.loadtxt('midterm_project/data/platform_to_camera.txt')
 
     def residuals(self, uv, weights, yaw, pitch, roll):
         # Compute the helicopter coordinate frames
@@ -29,10 +29,12 @@ class Quanser:
         # TASK: Compute the vector of residuals.
         #
         r = np.zeros(2*7) # Placeholder, remove me!
+        r[:7] = (uv_hat[0] - uv[0]) * weights
+        r[7:] = (uv_hat[1] - uv[1]) * weights
         return r
 
     def draw(self, uv, weights, image_number):
-        I = plt.imread('../data/video%04d.jpg' % image_number)
+        I = plt.imread('midterm_project/quanser_sequence/video%04d.jpg' % image_number)
         plt.imshow(I)
         plt.scatter(*uv[:, weights == 1], linewidths=1, edgecolor='black', color='white', s=80, label='Observed')
         plt.scatter(*self.uv_hat, color='red', label='Predicted', s=10)

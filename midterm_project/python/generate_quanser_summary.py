@@ -30,7 +30,7 @@ def generate_quanser_summary(trajectory, residuals, detections):
     #
     # Figure: Comparison between logged encoder values and vision estimates
     #
-    logs       = np.loadtxt('../data/logs.txt')
+    logs       = np.loadtxt('midterm_project/data/logs.txt')
     enc_time   = logs[:,0]
     enc_yaw    = logs[:,1]
     enc_pitch  = logs[:,2]
