@@ -37,6 +37,45 @@ class Quanser:
 
         return r[0]
 
+    def residuals2(self, uv, p, XY, K, R0):
+
+        yaw = p[0]
+        pitch = p[1]
+        roll = p[2]
+        x = p[3]
+        y = p[4]
+        z = p[5]
+
+        n = uv.shape[1]
+
+        """
+        uv1 = np.vstack((uv, np.ones(n)))
+        xy = (np.linalg.inv(K)@uv1)[:2]      
+        H = estimate_H(xy, XY)
+
+        T1,T2 = decompose_H(H)
+        """
+        
+        t = np.vstack([x,y,z])
+    
+        R = rotate_x(yaw)[:3,:3] @ rotate_y(pitch)[:3,:3] @ rotate_z(roll)[:3,:3] @ R0
+
+        T = np.hstack([R,t])
+
+        x_b = np.vstack((XY, np.zeros(n), np.ones(n)))
+       
+        uv_from_T = K @ T @ x_b
+        uv_from_T = uv_from_T[:2]/uv_from_T[-1]
+
+
+        errors = uv-uv_from_T
+
+        #print("uv: ",uv)
+        #print("uvT: ",uv_from_T)
+        r = np.hstack([(uv_from_T[0]-uv[0]), (uv_from_T[1]-uv[0])])
+
+        return r
+
     def draw(self, uv, weights, image_number):
         I = plt.imread('quanser_sequence/video%04d.jpg' % image_number)
         plt.imshow(I)

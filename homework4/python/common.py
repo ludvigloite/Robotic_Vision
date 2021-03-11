@@ -9,8 +9,8 @@ def estimate_H(xy, XY):
     # ordered by decreasing magnitude. However, note that it returns
     # V transposed.
     
-    #print("xy: ",xy)
-    #print("XY: ",XY)
+    print("xy: ",xy.shape)
+    print("XY: ",XY.shape)
 
     n = XY.shape[1]
 

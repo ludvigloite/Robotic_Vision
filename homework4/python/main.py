@@ -18,8 +18,13 @@ for image_number in [4]: # Use this to run on a single image
     #    uv : Pixel coordinates of successfully detected markers
     valid = detections[image_number, 0::3] == True
     uv = np.vstack((detections[image_number, 1::3], detections[image_number, 2::3]))
+    print("1 ",detections[image_number, 1::3])
+    print("2 ",detections[image_number, 2::3])
+
     uv = uv[:, valid]
     n = uv.shape[1]
+
+    print("\nuv: ",uv)
 
     # Tip: The 'valid' array can be used to perform Boolean array indexing,
     # e.g. to extract the XY values of only those markers that were detected.
