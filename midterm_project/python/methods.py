@@ -54,8 +54,6 @@ def gauss_newton(residualsfun, p0, printbool, step_size=0.25, num_iterations=100
         # 3: Solve for the step delta and update p as
         p += step_size*delta
 
-        #pass # Remove me!
-
     return p
 
 
