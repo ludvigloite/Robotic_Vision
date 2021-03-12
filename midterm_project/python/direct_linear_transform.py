@@ -79,9 +79,14 @@ def project(K, X):
     the camera intrinsic matrix K. Returns the dehomogenized pixel
     coordinates as an array of size 2xN.
     """
-    uvw = K@X[:3,:]
-    uvw /= uvw[2,:]
-    return uvw[:2,:]
+    if len(X.shape) == 2:
+        X = X[None]
+
+    uvw = K@X[:,:3,:]
+    # uvw /= uvw[2,:]
+    uvw = np.array([uvw[i]/uvw[i,2,:] for i in range(X.shape[0])])
+    # return uvw[:2,:]
+    return uvw[:,:2,:]
 
 def draw_frame(K, T, scale=1):
     """
