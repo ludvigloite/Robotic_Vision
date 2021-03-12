@@ -78,7 +78,7 @@ def gauss_newton(residualsfun, p0, printbool, step_size=0.25, num_iterations=100
 # Implement Levenberg-Marquardt here. Feel free to
 # modify the function to take additional arguments,
 # e.g. the termination condition tolerance.
-def levenberg_marquardt(residualsfun, p0, printbool=False, stop_precision = 1e-6, num_iterations=100, finite_difference_epsilon=1e-5):
+def levenberg_marquardt(residualsfun, p0, printbool=False, stop_precision = 1e-4, num_iterations=100, finite_difference_epsilon=1e-5):
 
     #p = [0,0,0] #task 1.5
 
@@ -123,7 +123,7 @@ def levenberg_marquardt(residualsfun, p0, printbool=False, stop_precision = 1e-6
         else:
             mu *= 2
 
-        #print(f"iter: {iteration} \n p: {p} \n mu: {mu}")
+        print(f"iter: {iteration} \n p: {p} \n mu: {mu}")
 
         if np.linalg.norm(delta) < stop_precision:
             return p

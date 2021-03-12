@@ -9,8 +9,8 @@ detections = np.loadtxt('data/detections.txt')
 # The script runs up to, but not including, this image.
 # run_until = 87 # Task 1.3
 # run_until = 88 # Task 1.4
-# run_until = 1 # Task 1.5
-run_until = detections.shape[0] # Task 1.7
+run_until = 1 # Task 1.5
+#run_until = detections.shape[0] # Task 1.7
 
 # Change this if you want the Quanser visualization for a different image.
 # (Can be useful for Task 1.4)
