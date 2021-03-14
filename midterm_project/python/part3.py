@@ -55,27 +55,10 @@ residualsfun_individual = lambda p, image_number : quanser.residuals_individual(
 
 print("forbi")
 
-n = heli_points.shape[0] # num markers
 m = len(init_lengths) + 7*3 # num static variables (lengths + markers in 3D)
-l = init_trajectory.shape[0] # num dynamic variables
 
-p = levenberg_marquardt2(residualsfun2, residualsfun_individual, p)
+p = levenberg_marquardt2(residualsfun2, residualsfun_individual, p, m)
 
-image_number = 5
-weights = detections[image_number, ::3]
-uv = np.vstack((detections[image_number, 1::3], detections[image_number, 2::3]))
+print(f"\nLengths:\n {p[:5]}")
+print(f"\nMarkers:\n {p[5:26].reshape(7,3)}")
 
-lengths = p[:5]
-markers = p[5:26]
-trajectory = p[26:]
-markers = np.vstack((markers.reshape(7,3).T,np.ones(7)))
-trajectory = trajectory.respape(3,351)
-
-    
-    
-
-
-
-#generate_quanser_summary(trajectory, all_residuals, detections)
-
-print()

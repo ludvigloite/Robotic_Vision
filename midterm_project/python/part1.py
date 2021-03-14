@@ -43,7 +43,7 @@ for image_number in range(run_until):
     # Make your optimization method accept a lambda function
     # to compute the vector of residuals. You can then reuse
     # the method later by passing a different lambda function.
-    residualsfun = lambda p : improvedQuanser.residuals(uv, weights, p[0], p[1], p[2])
+    residualsfun = lambda p : quanser.residuals(uv, weights, p[0], p[1], p[2])
 
     # Task 1.3:
     # Implement gauss_newton (see methods.py).
@@ -69,7 +69,7 @@ for image_number in range(run_until):
     trajectory[image_number, :] = p
     if image_number == visualize_number:
         print('Residuals on image number', image_number, r)
-        improvedQuanser.draw(uv, weights, image_number)
+        quanser.draw(uv, weights, image_number)
 
 # Note:
 # The generated figures will be saved in your working
