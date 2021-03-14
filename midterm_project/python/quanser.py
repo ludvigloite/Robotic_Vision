@@ -6,16 +6,18 @@ from direct_linear_transform import *
 class Quanser:
     def __init__(self):
         self.K = np.loadtxt('data/K.txt')
-        #self.heli_points = np.loadtxt('data/heli_points.txt').T
         self.XY = np.loadtxt("data/platform_corners_metric.txt")
         # self.XY = np.loadtxt("data/platform_corners_metric_t23.txt") # Task 2.3
+        
         self.platform_to_camera = np.loadtxt('data/platform_to_camera.txt')
-        #self.lengths = np.array([11.45, 32.5, 5, 65, 3])*1e-2
-        self.lengths = np.array([0.112, 0.321, 0.051, 0.661, 0.031])
-        self.heli_points = np.array([[-0.13116262,  0.17766911,  0.43327253, -0.03368243, -0.03428176, -0.02950639, -0.03133537],
-        [-0.0092462 , -0.00968803, -0.01006848, -0.08953217, -0.17767401, 0.21100523,  0.10739365],
-        [ 0.00647913,  0.01080793,  0.01314459, -0.03126685, -0.05092014, -0.0351117 , -0.03136749],
-         [1, 1, 1, 1, 1, 1, 1]])
+
+        #self.lengths = np.array([11.45, 32.5, 5, 65, 3])*1e-2  # Task 1
+        self.lengths = np.array([0.11249212, 0.32140264, 0.0507733,  0.66119392, 0.03120512]) #Task 3.1.1
+
+
+        #self.heli_points = np.loadtxt('data/heli_points.txt').T # Task1
+        self.heli_points = np.loadtxt('data/improved_marker_points.txt').T #Task 3.1.1
+
 
 
     def residuals(self, uv, weights, yaw, pitch, roll):
@@ -160,26 +162,27 @@ class ImprovedQuanser:
 
         #self.heli_points = np.loadtxt('data/heli_points.txt').T
         #self.heli_points = np.loadtxt('data/improved_marker_points.txt').T
-        #self.heli_points = np.loadtxt('data/improved_marker_points_best.txt').T
-        self.heli_points = np.loadtxt('data/marker.txt').T
+        self.heli_points = np.loadtxt('data/marker_points_best.txt').T # Task 3.1.2
 
         #self.lengths = np.array([0.11249211, 0.32140264, 0.05077297, 0.6611940541181118, 0.03120462792288483])
         #self.lengths = np.array([0.109862, 0.32139012, 0.05091132, 0.66160684, 0.03061243])
-        self.lengths = np.array([0.11037847,0.3218341, 0.05072337,  0.66186831,  0.03161999])
+        #self.lengths = np.array([0.11037847,0.3218341, 0.05072337,  0.66186831,  0.03161999])
+        self.lengths = np.array([0.11037847,  0.3218341 ,  0.05072337,  0.66186831,  0.03161999, -0.00233882,  0.01474224]) # Task 3.1.2
+        self.stat_angles = np.array([-0.00251951,  0.00820128, -0.00647965,  0.03738877, -0.00275378, -0.03104896]) # Task 3.1.2
 
 
     def residuals(self, uv, weights, yaw, pitch, roll):
         # Compute the helicopter coordinate frames
         
-        base_to_platform = translate(self.lengths[0]/2, self.lengths[0]/2, 0.0)@rotate_z(yaw)
-        hinge_to_base    = translate(0.00, 0.00,  self.lengths[1])@rotate_y(pitch)
+        base_to_platform = rotate_x(self.stat_angles[0])@rotate_y(self.stat_angles[1]) @ translate(self.lengths[0]/2, self.lengths[0]/2, 0.0)@rotate_z(yaw)
+        hinge_to_base    = rotate_x(self.stat_angles[2])@rotate_z(self.stat_angles[3]) @ translate(self.lengths[5], 0.00,  self.lengths[1])@rotate_y(pitch)
         arm_to_hinge     = translate(0.00, 0.00, -self.lengths[2])
-        rotors_to_arm    = translate(self.lengths[3], 0.00, -self.lengths[4])@rotate_x(roll)
+        rotors_to_arm    = rotate_y(self.stat_angles[4])@rotate_z(self.stat_angles[5]) @ translate(self.lengths[3], self.lengths[6], -self.lengths[4])@rotate_x(roll)
+        
         self.base_to_camera   = self.platform_to_camera@base_to_platform
         self.hinge_to_camera  = self.base_to_camera@hinge_to_base
         self.arm_to_camera    = self.hinge_to_camera@arm_to_hinge
         self.rotors_to_camera = self.arm_to_camera@rotors_to_arm
-        
 
         # Compute the predicted image location of the markers
         p1 = self.arm_to_camera @ self.heli_points[:,:3]
@@ -187,7 +190,6 @@ class ImprovedQuanser:
         uv_hat = project(self.K, np.hstack([p1, p2]))
         self.uv_hat = uv_hat # Save for use in draw()
         
-
         r = np.hstack([(uv_hat[0]-uv[0])*weights[None,:], (uv_hat[1]-uv[1])*weights[None,:]])
 
         return r[0]
@@ -206,7 +208,6 @@ class ImprovedQuanser:
         num_images = detections.shape[0]
 
         r = np.array([])
-        #markers = markers.T
 
         for image_number in range(num_images):
 
@@ -222,15 +223,11 @@ class ImprovedQuanser:
             arm_to_camera    = hinge_to_camera@arm_to_hinge
             rotors_to_camera = arm_to_camera@rotors_to_arm
 
-            # Compute the predicted image location of the markers
             p1 = arm_to_camera @ markers[:,:3]
             p2 = rotors_to_camera @ markers[:,3:]
             uv_hat = project(self.K, np.hstack([p1, p2]))
-            #uv_hat = uv_hat 
-            # uv_hat = 2*7
 
             r = np.append(r, np.hstack([(uv_hat[0]-uv[0])*weights[None,:], (uv_hat[1]-uv[1])*weights[None,:]]))
-            
 
         return r
 
@@ -258,12 +255,10 @@ class ImprovedQuanser:
         self.arm_to_camera    = self.hinge_to_camera@arm_to_hinge
         self.rotors_to_camera = self.arm_to_camera@rotors_to_arm
 
-        # Compute the predicted image location of the markers
         p1 = self.arm_to_camera @ markers[:,:3]
         p2 = self.rotors_to_camera @ markers[:,3:]
         uv_hat = project(self.K, np.hstack([p1, p2]))
         self.uv_hat = uv_hat # Save for use in draw()
-        # uv_hat = 2*7
 
         r = np.append(r, np.hstack([(uv_hat[0]-uv[0])*weights[None,:], (uv_hat[1]-uv[1])*weights[None,:]]))
        

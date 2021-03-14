@@ -53,7 +53,6 @@ uv = np.vstack((detections[:, 1::3], detections[:, 2::3]))
 residualsfun2 = lambda p : quanser.residuals3(detections, p)
 residualsfun_individual = lambda p, image_number : quanser.residuals_individual(detections, p,image_number)
 
-print("forbi")
 
 m = len(init_lengths) + 7*3 # num static variables (lengths + markers in 3D)
 

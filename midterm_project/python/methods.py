@@ -29,6 +29,7 @@ def jacobian3(residualsfun, p, epsilon, l, m, n):
     J = np.zeros((l,2*n,3))
     for image in range(l):
         Ji = np.zeros((2*n, 3))
+
         for j in range(3):
             p2 = np.hstack([p[:m], p[(m + 3*image):(m + 3*(image+1))]])
             e = np.zeros(m+3)
@@ -154,9 +155,6 @@ def levenberg_marquardt2(residualsfun, residualsfun_individual, p0, m, printbool
     A22 = J2.T @ J2
 
     mu = np.max((np.max(np.diag(A11)), np.max(np.diag(A22)))) * 1e-3
-   
-
-    print("started")
 
     for iteration in range(num_iterations):
 

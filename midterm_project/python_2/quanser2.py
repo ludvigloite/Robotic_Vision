@@ -5,13 +5,13 @@ from common import *
 class Quanser2:
     def __init__(self):
         self.K = np.loadtxt('midterm_project/data/K.txt')
-        self.heli_points = np.loadtxt('midterm_project/data/heli_points.txt').T
-    #     self.heli_points = np.array([[-0.13116262,  0.17766911,  0.43327253, -0.03368243, -0.03428176, -0.02950639, -0.03133537],
-    #    [-0.0092462 , -0.00968803, -0.01006848, -0.08953217, -0.17767401, 0.21100523,  0.10739365],
-    #    [ 0.00647913,  0.01080793,  0.01314459, -0.03126685, -0.05092014, -0.0351117 , -0.03136749],
-    #     [1, 1, 1, 1, 1, 1, 1]])
+        #self.heli_points = np.loadtxt('midterm_project/data/heli_points.txt').T
+        self.heli_points = np.array([[-0.13116262,  0.17766911,  0.43327253, -0.03368243, -0.03428176, -0.02950639, -0.03133537],
+         [-0.0092462 , -0.00968803, -0.01006848, -0.08953217, -0.17767401, 0.21100523,  0.10739365],
+         [ 0.00647913,  0.01080793,  0.01314459, -0.03126685, -0.05092014, -0.0351117 , -0.03136749],
+         [1, 1, 1, 1, 1, 1, 1]])
         self.platform_to_camera = np.loadtxt('midterm_project/data/platform_to_camera.txt')
-        #self.lengths = np.array([0.112, 0.321, 0.051, 0.661, 0.031])
+        self.lengths = np.array([0.112, 0.321, 0.051, 0.661, 0.031])
 
     def calculate_uv_hat(self, p, angles, K):
         base_to_platform = rotate_x(p[28]) @ rotate_y(p[29]) @ translate(p[0]/2,p[0]/2, 0.0) @ rotate_z(angles[0])
