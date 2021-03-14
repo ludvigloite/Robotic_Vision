@@ -11,6 +11,7 @@ if __name__ == "__main__":
     uv = np.loadtxt("data/platform_corners_image.txt")
     # XY = np.loadtxt("data/platform_corners_metric_t23.txt") # Task 2.3
     # uv = np.loadtxt("data/platform_corners_image_t23.txt") # Task 2.3
+
     K = np.loadtxt("data/K.txt")
     T_truth = np.loadtxt("data/platform_to_camera.txt")
 
@@ -80,5 +81,4 @@ if __name__ == "__main__":
     generate_figure(fig, 1, K, optimized_T, uv, uv_opt, XY)
     # plt.show()
     plt.savefig("task22")
-    print("Heh")
     
