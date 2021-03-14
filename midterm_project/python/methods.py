@@ -62,7 +62,7 @@ def gauss_newton(residualsfun, p0, printbool, step_size=0.25, num_iterations=100
         J[:,2] = (residualsfun(p+e3)-residualsfun(p-e3)) / (2*e)
 
         # 2: Form the normal equation terms JTJ and JTr.
-
+        
         if printbool:
             print("J= \n",J)
             print(f"JTJ = \n{J.T @ J}")

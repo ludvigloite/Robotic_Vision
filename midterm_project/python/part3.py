@@ -35,9 +35,6 @@ for image_number in range(run_until):
 
     p = levenberg_marquardt(residualsfun,p)
     init_trajectory[image_number * 3:image_number*3+3] = p
-    #init_trajectory[image_number, :] = p
-    #print(p)
-    #print(trajectory[image_number * 3:image_number*3+3])
 
 print("Finished computing init trajectory")
 
@@ -54,7 +51,7 @@ residualsfun2 = lambda p : quanser.residuals3(detections, p)
 residualsfun_individual = lambda p, image_number : quanser.residuals_individual(detections, p,image_number)
 
 
-m = len(init_lengths) + 7*3 # num static variables (lengths + markers in 3D)
+m = len(init_lengths) + 7*3 # num of static variables
 
 p = levenberg_marquardt2(residualsfun2, residualsfun_individual, p, m)
 

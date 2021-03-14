@@ -247,9 +247,9 @@ class ImprovedQuanser:
         weights = detections[image_number, ::3]
 
         base_to_platform = rotate_x(stat_angles[0])@rotate_y(stat_angles[1]) @ translate(lengths[0]/2, lengths[0]/2, 0.0)@rotate_z(trajectory[0])
-        hinge_to_base    = rotate_x(stat_angles[2])@rotate_z(stat_angles[3]) @ translate(0.00, 0.00,  lengths[1])@rotate_y(trajectory[1])
+        hinge_to_base    = rotate_x(stat_angles[2])@rotate_z(stat_angles[3]) @ translate(lengths[5], 0.00,  lengths[1])@rotate_y(trajectory[1])
         arm_to_hinge     = translate(0.00, 0.00, -lengths[2])
-        rotors_to_arm    = rotate_y(stat_angles[4])@rotate_z(stat_angles[5]) @ translate(lengths[3], 0.00, -lengths[4])@rotate_x(trajectory[2])
+        rotors_to_arm    = rotate_y(stat_angles[4])@rotate_z(stat_angles[5]) @ translate(lengths[3], lengths[6], -lengths[4])@rotate_x(trajectory[2])
         self.base_to_camera   = self.platform_to_camera@base_to_platform
         self.hinge_to_camera  = self.base_to_camera@hinge_to_base
         self.arm_to_camera    = self.hinge_to_camera@arm_to_hinge

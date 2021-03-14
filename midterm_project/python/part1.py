@@ -33,14 +33,15 @@ for image_number in range(run_until):
     print("im nr: ", image_number)
 
     #Task 1 and 3.1.1(dependant on lengths and markers)
-    residualsfun = lambda p : quanser.residuals(uv, weights, p[0], p[1], p[2])
+    #residualsfun = lambda p : quanser.residuals(uv, weights, p[0], p[1], p[2])
 
     #Task 3.1.2
-    #residualsfun = lambda p : improvedQuanser.residuals(uv, weights, p[0], p[1], p[2])
+    residualsfun = lambda p : improvedQuanser.residuals(uv, weights, p[0], p[1], p[2])
 
     # Task 1.3:
     # Implement gauss_newton (see methods.py).
-    """
+    
+    """ Task 1.4
     if image_number > 80:
         printbool = True
         print("image nr: ", image_number)
@@ -55,8 +56,8 @@ for image_number in range(run_until):
     trajectory[image_number, :] = p
     if image_number == visualize_number:
         print('Residuals on image number', image_number, r)
-        quanser.draw(uv, weights, image_number) #Task 1 or 3.1.1
-        #improvedQuanser.draw(uv, weights, image_number) # Task 3.1.2
+        #quanser.draw(uv, weights, image_number) #Task 1 or 3.1.1
+        improvedQuanser.draw(uv, weights, image_number) # Task 3.1.2
         
 
 generate_quanser_summary(trajectory, all_residuals, detections)
