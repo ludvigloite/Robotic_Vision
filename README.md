@@ -12,12 +12,10 @@ Spring 2021
 
 :white_check_mark:  Assignment 4
 
-:x:  Assignment 5 (Deadline 28.03)
-
 ### Other work
 
 :white_check_mark:  Midterm project (25%)
 
-:x:  Final project (35%) (05.04-28.04)
+:white_check_mark:  Final project (35%)
 
 :x:  Digital home exam (10%)
