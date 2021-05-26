@@ -1,0 +1,12 @@
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.pdf
+
+# User specific files
+*.vscode
+
+
+# Local files Lexau
+solution5/*
