@@ -9,7 +9,7 @@ In the **Final Project** we took pictures of a spesific entry to the Electical B
 
 ## Status
 
-### Assignments (30%)
+### Assignments
 :white_check_mark:  Assignment 1 7.5/7.5
 
 :white_check_mark:  Assignment 2 7.5/7.5
