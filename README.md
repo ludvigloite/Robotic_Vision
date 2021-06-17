@@ -10,23 +10,23 @@ In the **Final Project** we took pictures of a spesific entry to the Electical B
 ## Status
 
 ### Assignments (30%)
-:white_check_mark:  Assignment 1
+:white_check_mark:  Assignment 1 7.5/7.5
 
-:white_check_mark:  Assignment 2
+:white_check_mark:  Assignment 2 7.5/7.5
 
-:white_check_mark:  Assignment 3
+:white_check_mark:  Assignment 3 7.5/7.5
 
-:white_check_mark:  Assignment 4
+:white_check_mark:  Assignment 4 7.5/7.5
 
 ### Projects
 
-:white_check_mark:  Midterm project
+:white_check_mark:  Midterm project 22/25
 
-:white_check_mark:  Final project
+:white_check_mark:  Final project 32/35
 
 ### Exam
 
-:x:  Digital home exam 
+:white_check_mark:  Digital home exam 
 
 
 
